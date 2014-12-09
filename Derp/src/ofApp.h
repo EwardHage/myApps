@@ -27,9 +27,9 @@ class ofApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
 		
-		void passByValue(int x);
+//		void passByValue(int x);
 		//vector<circle>circles;     
-		int x;
+//		int x;
 
 
 		//Function for arduino
@@ -42,5 +42,6 @@ class ofApp : public ofBaseApp{
 		ofSerial serial; // allows for serial output.
 		ofArduino myArduino; // an arduino object.
 
-
+		// Add images
+		//ofImage derp;
 };

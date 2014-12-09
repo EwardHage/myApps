@@ -8,6 +8,8 @@ bool HasLostGame; // Awh You lost the fucking game.
 
 //--------------------------------------------------------------
 void ofApp::setup(){
+	//derp.loadImage("derp.png");
+
 	//for(int x=0; x < 11; x++){
 	//	
 	//	circle c;
@@ -17,12 +19,12 @@ void ofApp::setup(){
 	//	c.height = c.width;
 	//	circles.push_back(c);
 	//}
-
+/*
 	x = 10;
 	int &rx = x;
 	passByValue(x);
 	cout<<x<<"is he value of x after running the function passbyvalue"<<endl;
-
+*/
 	//connect arduino
 	myArduino.connect("COM3", 57600);
 	//test if arduino is set up
@@ -64,10 +66,10 @@ void ofApp::setup(){
 
 }
 
-void ofApp::passByValue(int x){
-	x =x+10;
-	cout<<x;
-}
+//void ofApp::passByValue(int x){
+//	x =x+10;
+//	cout<<x;
+//}
 //--------------------------------------------------------------Arduino shizzle.
 void ofApp::updateArduino(){
 
@@ -174,27 +176,27 @@ void ofApp::update(){
 		Live = 0;
 		LedTimer += 1;
 		if(LedTimer < 30){
-		myArduino.sendDigital(8, ARD_HIGH);
-		myArduino.sendDigital(9, ARD_LOW);
-		myArduino.sendDigital(10, ARD_LOW);
+			myArduino.sendDigital(8, ARD_HIGH);
+			myArduino.sendDigital(9, ARD_LOW);
+			myArduino.sendDigital(10, ARD_LOW);
+			}
+			if(LedTimer >= 30 && LedTimer < 60){
+			myArduino.sendDigital(8, ARD_LOW);
+			myArduino.sendDigital(9, ARD_HIGH);
+			myArduino.sendDigital(10, ARD_LOW);
+			}
+			if(LedTimer >= 60 && LedTimer <= 90){
+			myArduino.sendDigital(8, ARD_LOW);
+			myArduino.sendDigital(9, ARD_LOW);
+			myArduino.sendDigital(10, ARD_HIGH);
+			}
+			if(LedTimer > 90){
+			LedTimer = 0;
+			}
 		}
-		if(LedTimer >= 30 && LedTimer < 60){
-		myArduino.sendDigital(8, ARD_LOW);
-		myArduino.sendDigital(9, ARD_HIGH);
-		myArduino.sendDigital(10, ARD_LOW);
-		}
-		if(LedTimer >= 60 && LedTimer <= 90){
-		myArduino.sendDigital(8, ARD_LOW);
-		myArduino.sendDigital(9, ARD_LOW);
-		myArduino.sendDigital(10, ARD_HIGH);
-		}
-		if(LedTimer > 90){
-		LedTimer = 0;
-		}
-		}
-	}
-//cout << Live << endl;
 
+//cout << Live << endl;
+	}	
 
 }
 
@@ -209,13 +211,16 @@ void ofApp::draw(){
 
 	if(HasLostGame == false){
 	ofBackground(0); // Background color = black.
-	}
+	ofSetColor(255);
+	ofDrawBitmapString(ofToString(Live) +" Live" , 10, 10);
+	
 	//Player shit.
 	ofSetColor(255); // Set color white for the player.
 	ofCircle(PlayerX, PlayerY, PlayerRadius); // Body of the player.
 	ofSetColor(0);// Set color of eyes to black.
 	ofCircle(PlayerX-5, PlayerY-5, EyeRadius-2); // Left Eye.
 	ofCircle(PlayerX+5, PlayerY-5, EyeRadius); // Right Eye.
+	//derp.draw(PlayerX, PlayerY, PlayerRadius);
 	
 	//Obstacle1 Shizzle.
 	ofSetColor(255, 0, 0);
@@ -226,7 +231,7 @@ void ofApp::draw(){
 	ofSetColor(255, 0, 0);
 	ofRect(ObsX2, UpperBorder2, 0, ObsWidth2, -ObsHeight2); //Upper
 	ofRect(ObsX2, LowerBorder2, 0, ObsWidth2, ObsHeight2); // Lower
-	
+	}
 	//When game is lost.
 	if(HasLostGame == true){ // When Has lost is true then.
 		ofSetColor(255); // Make coffe for me so I can have a caffeine rush.
